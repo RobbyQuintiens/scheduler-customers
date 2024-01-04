@@ -16,6 +16,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_CUSTOMER")
     private Integer id;
     @Column(name = "USERNAME")
     private String username;
@@ -25,4 +26,8 @@ public class Customer {
     private String lastName;
     @Column(name = "EMAIL")
     private String email;
+    @Column(name = "ID_PROVIDER")
+    private String providerId;
+    @Column(name = "IS_COMPANY")
+    private boolean company;
 }

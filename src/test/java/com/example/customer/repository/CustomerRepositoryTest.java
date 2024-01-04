@@ -21,7 +21,7 @@ public class CustomerRepositoryTest {
     @Test
     public void findCustomerByIdTest() {
         createCustomer();
-        Optional<Customer> foundCustomer = customerRepository.findCustomerById(customer.getId());
+        Optional<Customer> foundCustomer = customerRepository.findCustomerByIdAndProviderId(customer.getId(), customer.getProviderId());
 
         assertThat(foundCustomer.get().getId()).isEqualTo(customer.getId());
         assertThat(foundCustomer.get().getEmail()).isEqualTo(customer.getEmail());
@@ -33,7 +33,7 @@ public class CustomerRepositoryTest {
     @Test
     public void findCustomerByEmailTest() {
         createCustomer();
-        Optional<Customer> foundCustomer = customerRepository.findCustomerByEmail(customer.getEmail());
+        Optional<Customer> foundCustomer = customerRepository.findCustomerByEmailAndProviderId(customer.getEmail(), customer.getProviderId());
 
         assertThat(foundCustomer.get().getId()).isEqualTo(customer.getId());
         assertThat(foundCustomer.get().getEmail()).isEqualTo(customer.getEmail());
@@ -45,7 +45,7 @@ public class CustomerRepositoryTest {
     @Test
     public void findCustomerByUsernameTest() {
         createCustomer();
-        Optional<Customer> foundCustomer = customerRepository.findCustomerByUsername(customer.getUsername());
+        Optional<Customer> foundCustomer = customerRepository.findCustomerByUsernameAndProviderId(customer.getUsername(), customer.getProviderId());
 
         assertThat(foundCustomer.get().getId()).isEqualTo(customer.getId());
         assertThat(foundCustomer.get().getEmail()).isEqualTo(customer.getEmail());
@@ -57,9 +57,35 @@ public class CustomerRepositoryTest {
     @Test
     public void findCustomersByLastNameTest() {
         createCustomer();
-        List<Customer> foundCustomers = customerRepository.findCustomersByLastName(customer.getLastName());
+        List<Customer> foundCustomers = customerRepository.findCustomersByLastNameAndProviderId(customer.getLastName(), customer.getProviderId());
 
         assertThat(foundCustomers.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void findAllCustomers() {
+        createCustomer();
+        List<Customer> foundCustomers = customerRepository.findAllByProviderId(customer.getProviderId());
+
+        assertThat(foundCustomers.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void findCustomersByCompanyIsTrue() {
+        createCustomer();
+        List<Customer> foundCustomers = customerRepository.findCustomersByCompanyAndProviderId(true, customer.getProviderId());
+
+        assertThat(foundCustomers.size()).isEqualTo(1);
+        assertThat(foundCustomers.get(0).getUsername()).isEqualTo("username");
+    }
+
+    @Test
+    public void findCustomersByCompanyIsFalse() {
+        createCustomer();
+        List<Customer> foundCustomers = customerRepository.findCustomersByCompanyAndProviderId(false, customer.getProviderId());
+
+        assertThat(foundCustomers.size()).isEqualTo(1);
+        assertThat(foundCustomers.get(0).getUsername()).isEqualTo("second");
     }
 
     private void createCustomer() {
@@ -69,6 +95,8 @@ public class CustomerRepositoryTest {
         customer.setUsername("username");
         customer.setFirstName("first name");
         customer.setLastName("last name");
+        customer.setProviderId("100");
+        customer.setCompany(true);
         customerRepository.save(customer);
         customerRepository.save(createSecondCustomer());
     }
@@ -79,6 +107,8 @@ public class CustomerRepositoryTest {
         customer.setUsername("second");
         customer.setFirstName("first");
         customer.setLastName("last name");
+        customer.setProviderId("100");
+        customer.setCompany(false);
         return customer;
     }
 }

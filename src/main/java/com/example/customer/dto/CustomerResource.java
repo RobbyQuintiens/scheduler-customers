@@ -1,29 +1,30 @@
 package com.example.customer.dto;
 
-import com.example.customer.model.Customer;
+import jakarta.validation.constraints.NotNull;
 
-public class CustomerDto {
+public class CustomerResource {
 
-    private final int id;
+    @NotNull
     private final String username;
+    @NotNull
     private final String firstName;
+    @NotNull
     private final String lastName;
+    @NotNull
     private final String email;
+    @NotNull
     private final String providerId;
+    @NotNull
     private final boolean company;
 
-    public CustomerDto(Customer customer) {
-        this.id = customer.getId();
-        this.username = customer.getUsername();
-        this.firstName = customer.getFirstName();
-        this.lastName = customer.getLastName();
-        this.email = customer.getEmail();
-        this.providerId = customer.getProviderId();
-        this.company = customer.isCompany();
-    }
-
-    public int getId() {
-        return id;
+    public CustomerResource(String username, String firstName, String lastName, String email, String providerId,
+                            boolean company) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.providerId = providerId;
+        this.company = company;
     }
 
     public String getUsername() {
