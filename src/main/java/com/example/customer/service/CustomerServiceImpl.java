@@ -52,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customers.isEmpty()) {
             throw new CustomerNotFoundException();
         }
-        return new PageImpl<>(customers, paging, customers.size());
+        return new PageImpl<>(customers, paging, findTotalOfElements(predicate, builder));
     }
 
     private Customer mapToCustomer(CustomerResource customerResource, String providerId) {
@@ -67,5 +67,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Pageable sortBy(int page, int size, String sortBy) {
         return PageRequest.of(page, size, Sort.by(sortBy));
+    }
+
+    private Long findTotalOfElements(Predicate predicate, BooleanBuilder builder) {
+        return customerPageRepository.count(builder.and(predicate));
     }
 }
