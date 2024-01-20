@@ -1,17 +1,21 @@
 package com.example.customer.service;
 
+import com.example.customer.dto.AddressResource;
 import com.example.customer.dto.CustomerDto;
 import com.example.customer.dto.CustomerResource;
+import com.example.customer.model.Address;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 
 public interface CustomerService {
 
-    public CustomerDto getCustomerById(int id, String provider);
+    CustomerDto getCustomerById(int id, String provider);
 
-    public CustomerDto getCustomerByEmail(String email, String provider);
+    CustomerDto getCustomerByEmail(String email, String provider);
 
-    public void createCustomer(CustomerResource customerResource, String providerId);
+    void createCustomer(CustomerResource customerResource, String providerId);
 
-    public Page<CustomerDto> getAllCustomers(Predicate predicate, String provider, int page, int size, String sortBy);
+    Page<CustomerDto> getAllCustomers(Predicate predicate, String provider, int page, int size, String sortBy);
+
+    void addCustomerAddress(Integer customerId, Address address);
 }

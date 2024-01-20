@@ -16,15 +16,21 @@ public class CustomerResource {
     private final String providerId;
     @NotNull
     private final boolean company;
+    @NotNull
+    private final String phoneNumber;
+    @NotNull
+    private final AddressResource addressResource;
 
     public CustomerResource(String username, String firstName, String lastName, String email, String providerId,
-                            boolean company) {
+                            boolean company, String phoneNumber, AddressResource addressResource) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.providerId = providerId;
         this.company = company;
+        this.phoneNumber = phoneNumber;
+        this.addressResource = addressResource;
     }
 
     public String getUsername() {
@@ -49,5 +55,13 @@ public class CustomerResource {
 
     public boolean isCompany() {
         return company;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public AddressResource getAddressResource() {
+        return addressResource;
     }
 }

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -30,4 +32,9 @@ public class Customer {
     private String providerId;
     @Column(name = "IS_COMPANY")
     private boolean company;
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ID_CUSTOMER")
+    private List<Address> addresses;
 }

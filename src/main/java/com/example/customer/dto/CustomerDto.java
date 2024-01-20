@@ -1,6 +1,10 @@
 package com.example.customer.dto;
 
+import com.example.customer.model.Address;
 import com.example.customer.model.Customer;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerDto {
 
@@ -11,6 +15,8 @@ public class CustomerDto {
     private final String email;
     private final String providerId;
     private final boolean company;
+    private final String phoneNumber;
+    private final List<AddressDto> addresses;
 
     public CustomerDto(Customer customer) {
         this.id = customer.getId();
@@ -20,6 +26,8 @@ public class CustomerDto {
         this.email = customer.getEmail();
         this.providerId = customer.getProviderId();
         this.company = customer.isCompany();
+        this.phoneNumber = customer.getPhoneNumber();
+        this.addresses = setAddresses(customer.getAddresses());
     }
 
     public int getId() {
@@ -48,5 +56,19 @@ public class CustomerDto {
 
     public boolean isCompany() {
         return company;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public List<AddressDto> setAddresses(List<Address> addresses) {
+        return addresses.stream()
+                .map(AddressDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<AddressDto> getAddresses() {
+        return addresses;
     }
 }

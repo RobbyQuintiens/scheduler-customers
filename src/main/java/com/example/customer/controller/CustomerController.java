@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
@@ -35,21 +33,9 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getAllCustomers(predicate, providerId, page, size, sort));
     }
 
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable int id, @RequestHeader HttpHeaders token) {
-//        String providerId = UserDetailsFilter.getUserInfo(token, "sub");
-//        return ResponseEntity.ok(customerService.getCustomerById(id, providerId));
-//    }
-//
-//    @GetMapping("/{email}")
-//    public ResponseEntity<CustomerDto> getCustomerByEmail(@PathVariable String email, @RequestHeader HttpHeaders token) {
-//        String providerId = UserDetailsFilter.getUserInfo(token, "sub");
-//        return ResponseEntity.ok(customerService.getCustomerByEmail(email, providerId));
-//    }
-
     @PostMapping("/create")
-    public ResponseEntity<Void> createCustomer(@RequestHeader HttpHeaders token, @RequestBody CustomerResource customerResource) {
+    public ResponseEntity<Void> createCustomer(@RequestHeader HttpHeaders token,
+                                               @RequestBody CustomerResource customerResource) {
         customerService.createCustomer(customerResource, UserDetailsFilter.getUserInfo(token, "sub"));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
