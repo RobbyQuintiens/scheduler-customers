@@ -1,4 +1,4 @@
-package com.example.customer.service;
+package com.example.customer.repository;
 
 import com.example.customer.model.Customer;
 import com.example.customer.model.QCustomer;

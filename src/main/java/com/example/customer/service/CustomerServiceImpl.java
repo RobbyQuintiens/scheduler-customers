@@ -7,6 +7,7 @@ import com.example.customer.model.Address;
 import com.example.customer.model.Customer;
 import com.example.customer.model.QCustomer;
 import com.example.customer.repository.AddressRepository;
+import com.example.customer.repository.CustomerPageRepository;
 import com.example.customer.repository.CustomerRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
